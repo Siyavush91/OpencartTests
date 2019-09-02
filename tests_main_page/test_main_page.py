@@ -1,19 +1,23 @@
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from locators import MainPage
 from locators import ProductPage
 from locators import Alerts
-from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
+
+
 
 
 def test_elements_by_css_selector1(browser):
+    """
+    Тест на наличие элементов в навбаре
+    """
     navbar_items = browser.find_elements_by_css_selector(MainPage.nav_top_right)
     for item in navbar_items:
         ActionChains(browser).move_to_element(item).pause(1).perform()
 
 
 def test_elements_by_class(browser):
-    credit_type_1 = browser.find_element_by_class_name(MainPage.nav_top_left).click()
+    browser.find_element_by_class_name(MainPage.nav_top_left).click()
 
 
 def test_element_by_class_name_selector(browser):

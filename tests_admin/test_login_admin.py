@@ -1,6 +1,4 @@
 import pytest
-import time
-
 from locators import Login
 
 

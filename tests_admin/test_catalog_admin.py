@@ -1,4 +1,3 @@
-import time
 import pytest
 
 from selenium.webdriver import ActionChains
@@ -41,7 +40,6 @@ class TestCreateProducts:
         catalog_menu = browser.find_element_by_css_selector(Catalog.main_menu)
         catalog_menu.click()
         catalog_menu.find_element_by_link_text(Catalog.products).click()
-        time.sleep(2)
 
 
     def test_add_new(self, browser):
@@ -56,7 +54,6 @@ class TestCreateProducts:
         browser.find_element_by_name(Catalog.model_field).send_keys("10R")
         browser.find_element_by_xpath(Catalog.save_button).click()
         assert browser.find_elements_by_xpath(Alerts.add_to_wish_alert)
-        time.sleep(5)
 
 
     def test_edit(self, browser):
@@ -69,7 +66,6 @@ class TestCreateProducts:
             ActionChains(browser).move_to_element(item).pause(1).perform()
         browser.find_element_by_xpath(Catalog.save_button).click()
         assert browser.find_elements_by_xpath(Alerts.add_to_wish_alert)
-        time.sleep(5)
 
 
     def test_delete(self, browser):
@@ -81,4 +77,3 @@ class TestCreateProducts:
          browser.find_element_by_xpath(Catalog.product_check_box).click()
          browser.find_element_by_xpath(Catalog.delete_button).click()
          Alert(browser).accept()
-         time.sleep(5)

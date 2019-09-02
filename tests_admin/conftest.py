@@ -16,16 +16,22 @@ def pytest_addoption(parser):
 def browser(request):
     browser_param = request.config.getoption("--browser")
     if browser_param == "chrome":
-        driver = webdriver.Chrome()
+        capabilities = DesiredCapabilities.CHROME
+        options = webdriver.ChromeOptions()
+        options.add_argument("--kiosk")
+        dr = webdriver.Chrome(options=options)
     elif browser_param == "firefox":
-        driver = webdriver.Firefox()
+        capabilities = DesiredCapabilities.FIREFOX
+        options = webdriver.FirefoxOptions()
+        dr = webdriver.Firefox(options=options)
+        dr.maximize_window()
     elif browser_param == "safari":
-        driver = webdriver.Safari()
+        dr = webdriver.Safari()
     else:
         raise Exception(f"{request.param} is not supported!")
 
-    driver.implicitly_wait(10)
-    request.addfinalizer(driver.close)
-    driver.get(request.config.getoption("--url"))
+    dr.implicitly_wait(10)
+    request.addfinalizer(dr.close)
+    dr.get(request.config.getoption("--url"))
 
-    return driver
+    return dr
